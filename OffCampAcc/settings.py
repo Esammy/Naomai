@@ -21,6 +21,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django_filters',
+    'crispy_forms',
     'OffKLodges.apps.OffklodgesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,7 +46,7 @@ ROOT_URLCONF = 'OffCampAcc.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS':  [BASE_DIR, 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,5 +124,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_REDIRECT_URL = 'index'
+
 PAYSTACK_SECRET_KEY = os.environ.get('PAYSTACK_PUBLIC_TEST_KEY')
 PAYSTACK_PUBLIC_KEY = os.environ.get('PAYSTACK_SECRET_TEST_KEY')
+
+#CRISPY_TEMPLATE_PACK = 'bootstrap4'

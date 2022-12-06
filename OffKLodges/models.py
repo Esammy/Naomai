@@ -98,7 +98,7 @@ class LodgeProperties(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='0.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='Profile-Photo-Place-Holder.png', upload_to='profile_pics')
     email = models.EmailField(default= 'egwusamuel2015@gmail.com')
 
     def __str__(self):
