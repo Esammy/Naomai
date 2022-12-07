@@ -9,6 +9,10 @@ def index(request):
 def login(request):
     return render(request, 'login.html')
 
+def landing(request):
+    return render(request, 'landing.html')
+
+
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
