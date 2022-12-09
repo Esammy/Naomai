@@ -148,3 +148,6 @@ class Payment(models.Model):
         if self.verified:
             return True
         return False
+
+class FindRoomMate(models.Model):
+    pass
