@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <div class="row item" >
+          
+    {% for lodge in lodges %}     
+    <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-5 mb-lg-0">
+        <div class="icon-box card-body" data-aos="fade-up">
+            <a target="_blank" id="myImg" href="{% url 'lodge_detail' lodge.id %}">
+                <img src="{{ lodge.imageURL }}" class="card-img-top" alt="Lodge photos" width="300" height="200">
+            </a>
+            <div class="desc" data-aos="zoom-out">
+                <h5 class="card-title">{{lodge.name}}</h5>
+                <p class="card-text">{{lodge.price}}</p>
+            
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

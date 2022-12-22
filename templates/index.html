@@ -1,5 +1,84 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+    <section id="header" class="d-flex align-items-center">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+                <img src="{% static 'images/Futminna_logo.jpg' %}" class="img-fluid " id="logo" alt="">
+                <h1>Accommodation System </h1>
+                <h2> for Off Campus students</h2>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 header-img" data-aos="zoom-in" data-aos-delay="200">
+                <img src="{% static 'images/senate.jpg' %}" class="img-fluid animated" id="senateimg" alt="">
+                </div>
+            </div>
+    
+        </div>
+    
+    </section><!-- End header -->
+    
+<main>
+    <section id="first-layout">
+        <div class="first-content">
+        <h3>Easiest Way To Find Your Dream Apartment</h3>
+        </div>
+        <div>
+        </div>
+    </section>
+
+   
+    <section id="second-layout">
+        <div class="first-content">               
+            <h4>Available Apartment</h4>
+        </div>
+
+        <div id="content-background">
+            <div class="row item" >
+            
+                {% for lodge in lodges %}     
+                <div class="col-md-4 col-lg-5 d-flex align-items-stretch mb-3 mb-lg-0">
+                    <div class="icon-box card-body" data-aos="fade-up">
+                        <a id="myImg" href="{% url 'lodge_detail' lodge.id %}">
+                            <img src="{{ lodge.imageURL }}" class="card-img-top" alt="Lodge photos" width="300" height="200">
+                        </a>
+                        <div class="desc" data-aos="zoom-out">
+                            <h5 class="card-title">{{lodge.name}}</h5>
+                            <p class="card-text">{{lodge.price}}</p>
+                            <a href="{% url 'confirm_payment' lodge.id %}">Rent</a>
+                        </div>
+                    </div>
+                </div>
+      
+                {% endfor %}
+            </div>
+            <div class="view_all" ><a href="{% url 'all_lodges' %}">view all lodges.</a> </div>
+        </div>
+        <div class="view_all" ><a href="{% url 'all_lodges' %}">view all lodges.</a> </div>
+    </section>
+
+  
+    <section id="first-layout">
+       <div> <h4>
+            Find The Best Person To share An Apartment with 
+        </h4></div>
+        <div class="third-content">
+            <label for=""><b></b></label>
+            <input type="text" placeholder="" name="" id="text1"><br>
+            <label for=""><b></b></label>
+            <input type="text" placeholder="" name="" id="text1"><br>
+            <label for=""><b></b></label>
+            <input type="text" placeholder="" name="" id="text1"><br>
+            <button>Find Roommate</button>
+         
+        </div>
+    </section>
+
+
+      
+
+</main>
 
 {% endblock content %}

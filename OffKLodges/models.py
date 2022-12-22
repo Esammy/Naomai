@@ -150,4 +150,12 @@ class Payment(models.Model):
         return False
 
 class FindRoomMate(models.Model):
-    pass
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    fname = models.CharField(max_length=50)
+    lname = models.CharField(max_length=50)
+    sex = models.BooleanField(default=False)
+    anylevel = models.BooleanField(default=False)
+    noise = models.BooleanField(default=False)
+    sleep_lighton = models.BooleanField(default=False)
+    sex = models.BooleanField(default=False)
+    date_created = models.DateTimeField(auto_now_add=True)

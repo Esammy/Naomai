@@ -159,10 +159,9 @@ div.desc {
   padding-bottom: 5px;
 }
   
-.view_all {
-  text-align: center;
-  padding-top: 5px;
-  padding-bottom: 20px;
+.view_all a{
+ color: red !important;
+  
 }
 
 #content-background{

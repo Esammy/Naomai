@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<br>
+<br>
+  <div class="container">
+    <div class="big-img col-lg-9 mx-auto" data-aos="zoom-out">  
+      <div class="icon-box card-body">
+        <img src="{{ object.sorroundingImageURL }}" class="card-img-top" alt="Lodge photos" width="100%" >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-lg-4 align-items-stretch mb-5 mb-lg-0 detail-item" data-aos="fade-up">
+        <img src="{{ object.lodge_interiorImageURL }}" class="card-img-top" alt="Lodge photos" >
+      </div>
+      <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-5 mb-lg-0 detail-item" data-aos="fade-up">
+        <img src="{{ object.roomFrontImageURL }}" class="card-img-top" alt="Lodge photos" >
+      </div>
+      <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-5 mb-lg-0 detail-item" data-aos="fade-up">
+        <img src="{{ object.roomBackImageURL }}" class="card-img-top" alt="Lodge photos" >
+      </div>
+      <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-5 mb-lg-0 detail-item" data-aos="fade-up">
+        <img src="{{ object.roomKitchenImageURL }}" class="card-img-top" alt="Lodge photos" >
+      </div>
+      <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-5 mb-lg-0 detail-item" data-aos="fade-up">
+        <img src="{{ object.toiletRoomImageURL }}" class="card-img-top" alt="Lodge photos" >
+      </div>
+      <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-5 mb-lg-0 detail-item" data-aos="fade-up">
+        <img src="{{ object.bedRoomImageURL }}" class="card-img-top" alt="Lodge photos" >
+      </div>
+    </div>
+    <div class="desc" data-aos="zoom-out">
+      <h5 class="card-title">{{object.lodge}} Lodge</h5>
+      <p class="card-text">Price: {{object.lodge.price}}</p>
+      <p class="card-text">Rooms Total: {{object.roomsTotalNum}}</p>
+      <p class="card-text">Rooms Available: {{object.roomsAvailable}}</p>
+      {% if object.selfcon %}
+        <p class="card-text">Rooms Type: Selfcon</p>
+      {% else %}
+        <p class="card-text">Room Type: Not Selfcon</p>
+      {% endif %}
+  </div>
+  </div>
+<br>
+<br>
+<br>
+{% endblock content %}

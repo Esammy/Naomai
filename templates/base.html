@@ -25,6 +25,8 @@
       <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
       <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
       <link rel="stylesheet" type="text/css" href="{% static 'css/newcss.css' %}">
+      
+      <link rel="stylesheet" type="text/css" href="{% static '/css/landing.css' %}"> 
 
       <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
@@ -52,10 +54,10 @@
           <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">Home</a>
+                <a class="nav-link" aria-current="page" href="{% url 'index' %}">Home</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

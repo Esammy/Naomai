@@ -1,0 +1,21 @@
+<div id="content-background">
+    {% if searched %}
+    <div class="row item" >
+        {% for lodge in results %}     
+        <div class="col-md-4 col-lg-3 d-flex align-items-stretch mb-3 mb-lg-0">
+            <div class="icon-box card-body" data-aos="fade-up">
+                <a id="myImg" href="{% url 'lodge_detail' lodge.id %}">
+                    <img src="{{ lodge.imageURL }}" class="card-img-top" alt="Lodge photos" width="300" height="200">
+                </a>
+                <div class="desc" data-aos="zoom-out">
+                    <h5 class="card-title">{{lodge.name}}</h5>
+                    <p class="card-text">{{lodge.price}}</p>
+                
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+     <div><p>{{ searched }} not found...</p></div>
+    {% endif %}

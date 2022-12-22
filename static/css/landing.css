@@ -1,0 +1,89 @@
+
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+body{
+  position: relative;
+  min-height: 180vh;
+  margin:0;
+  font-size: px;
+  font-family: sans-sherif;
+  }
+  h1, h2, h3, h4, h5, h6, a, p, button, span, input {
+    font-family: 'Poppins', sans-serif;
+}
+main{
+  border-radius: 0.3rem;
+ 
+  margin: 0 2rem;
+}
+  
+  #nav-bar {
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0.8rem 0;
+    background-color: grey;
+    text-align: justify;
+}
+
+#nav-bar .nav-middle .middle-link {
+    margin-right: 2rem;
+    color: black;
+    text-decoration: none;
+}
+
+#nav-bar .nav-middle .middle-link:hover {
+    cursor: pointer;
+    color: white;
+}
+
+
+#nav-bar .nav-right .right-link {
+  padding: 0.5rem 2rem;
+  border-radius: .2rem;
+  color: white;
+  font-size: 1rem;
+  margin: 0 0.8rem 0 0;
+  text-decoration: none;
+
+}
+
+
+
+#nav-bar .nav-right a:hover, a:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+  color: rgb(66, 94, 66);
+  border-color: rgb(66, 94, 66);
+}
+
+
+
+
+#first-layout{display: flex;
+  flex-direction: column;
+  width:90%;
+  margin: 2rem 5rem;
+  padding: 2rem;
+  /*border: 0.1rem solid black;*/
+  background-color: grey;
+  text-align: center;
+  justify-content: center;
+
+}
+
+#second-layout{display: flex;
+  width: 90%;
+  flex-direction: column;
+  margin: 2rem 5rem;
+  padding: 2rem;
+  /*border: 0.2rem solid grey;*/
+}
