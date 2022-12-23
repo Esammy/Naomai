@@ -1,84 +1,265 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <section id="header" class="d-flex align-items-center">
+<div class="ind_page">
+    <div class="head-top">
+        <section id="header" class="d-flex align-items-center">
 
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-                <img src="{% static 'images/Futminna_logo.jpg' %}" class="img-fluid " id="logo" alt="">
-                <h1>Accommodation System </h1>
-                <h2> for Off Campus students</h2>
-                </div>
-                <div class="col-lg-6 order-1 order-lg-2 header-img" data-aos="zoom-in" data-aos-delay="200">
-                <img src="{% static 'images/senate.jpg' %}" class="img-fluid animated" id="senateimg" alt="">
-                </div>
-            </div>
+            <div class="contdainer">
     
-        </div>
-    
-    </section><!-- End header -->
-    
-<main>
-    <section id="first-layout">
-        <div class="first-content">
-        <h3>Easiest Way To Find Your Dream Apartment</h3>
-        </div>
-        <div>
-        </div>
-    </section>
-
-   
-    <section id="second-layout">
-        <div class="first-content">               
-            <h4>Available Apartment</h4>
-        </div>
-
-        <div id="content-background">
-            <div class="row item" >
-            
-                {% for lodge in lodges %}     
-                <div class="col-md-4 col-lg-5 d-flex align-items-stretch mb-3 mb-lg-0">
-                    <div class="icon-box card-body" data-aos="fade-up">
-                        <a id="myImg" href="{% url 'lodge_detail' lodge.id %}">
-                            <img src="{{ lodge.imageURL }}" class="card-img-top" alt="Lodge photos" width="300" height="200">
-                        </a>
-                        <div class="desc" data-aos="zoom-out">
-                            <h5 class="card-title">{{lodge.name}}</h5>
-                            <p class="card-text">{{lodge.price}}</p>
-                            <a href="{% url 'confirm_payment' lodge.id %}">Rent</a>
-                        </div>
+                <div class="row">
+                    <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+                    <img src="{% static 'images/Futminna_logo.jpg' %}" class="img-fluid " id="logo" alt="">
+                    <h1>Accommodation System </h1>
+                    <h2> for Off Campus students</h2>
+                    </div>
+                    <div class="col-lg-6 order-1 order-lg-2 header-img" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="{% static 'images/senate.jpg' %}" class="img-fluid animated" id="senateimg" alt="">
                     </div>
                 </div>
-      
-                {% endfor %}
+        
             </div>
-            <div class="view_all" ><a href="{% url 'all_lodges' %}">view all lodges.</a> </div>
+        
+        </section><!-- End header -->
+        <section id="first-layout">
+            <div class="first-content">
+            <h3>Easiest Way To Find Your Dream Apartment</h3>
+            </div>
+            <div>
+            </div>
+        </section>
+    </div>
+    
+
+    
+    <main>
+       
+    
+        <section id="second-layout">
+            <div class="first-content">               
+                <h4>Available Apartment</h4>
+            </div>
+
+            <div id="content-background">
+                <div class="row item" >
+                
+                    {% for lodge in lodges %}     
+                    <div class="col-md-4 col-lg-5 d-flex align-items-stretch mb-3 mb-lg-0">
+                        <div class="icon-box card-body" data-aos="fade-up">
+                            <a id="myImg" href="{% url 'lodge_detail' lodge.id %}">
+                                <img src="{{ lodge.imageURL }}" class="card-img-top" alt="Lodge photos" width="300" height="200">
+                            </a>
+                            <div class="desc" data-aos="zoom-out">
+                                <h5 class="card-title">{{lodge.name}}</h5>
+                                <p class="card-text">N{{lodge.price}}</p>
+                                <a href="{% url 'confirm_payment' lodge.id %}">Rent</a>
+                            </div>
+                        </div>
+                    </div>
+        
+                    {% endfor %}
+                </div>
+                <div class="view_all" ><a href="{% url 'all_lodges' %}">view all lodges.</a> </div>
+            </div>
+        </section>
+
+    
+    <!--
+        <section id="first-layout">
+        <div> <h4>
+                Find The Best Person To share An Apartment with 
+            </h4></div>
+            <div class="third-content">
+                <label for=""><b></b></label>
+                <input type="text" placeholder="" name="" id="text1"><br>
+                <label for=""><b></b></label>
+                <input type="text" placeholder="" name="" id="text1"><br>
+                <label for=""><b></b></label>
+                <input type="text" placeholder="" name="" id="text1"><br>
+                <button>Find Roommate</button>
+            </div>      
+        </section>
+    -->
+
+                <!--Form for finding roomate-->
+        <div class="container find-roomate">
+            <div class="row g-3">
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+                </div>
+              </div>
+                <div class="col-md-4">
+                    <label for="inputState" class="form-label">State</label>
+                    <select id="inputState" class="form-select">
+                    <option selected>Choose...</option>
+                    <option>...</option>
+                    </select>
+                </div>
+                <fieldset class="row mb-3">
+                    <legend class="col-form-label col-sm-2 pt-0">1. Do you prefer to go to bed early or stay up late?</legend>
+                    <div class="col-sm-10">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                        <label class="form-check-label" for="gridRadios1">
+                          Early
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                          Late
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                          I don't care
+                        </label>
+                      </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="row mb-3">
+                    <legend class="col-form-label col-sm-2 pt-0">2. Do you like to study in silent or with background noise?</legend>
+                    <div class="col-sm-10">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                        <label class="form-check-label" for="gridRadios1">
+                          Silent
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                          Background noise
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                          I don't care
+                        </label>
+                      </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="row mb-3">
+                    <legend class="col-form-label col-sm-2 pt-0">3. Do you like to keep your living space clean and organized?</legend>
+                    <div class="col-sm-10">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                        <label class="form-check-label" for="gridRadios1">
+                          Yes
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                          NO
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                          I don't care
+                        </label>
+                      </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="row mb-3">
+                    <legend class="col-form-label col-sm-2 pt-0">4. Do you expect to share groceries and household items?</legend>
+                    <div class="col-sm-10">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                        <label class="form-check-label" for="gridRadios1">
+                          Yes
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                          NO
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                          I don't care
+                        </label>
+                      </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="row mb-3">
+                    <legend class="col-form-label col-sm-2 pt-0">5. Do you prefer to spend a lot of time with your roommte, or do you prefer to have your own space and time?</legend>
+                    <div class="col-sm-10">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                        <label class="form-check-label" for="gridRadios1">
+                          Spend time with my roomate
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                          Have my own space and time
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                          I don't care
+                        </label>
+                      </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="row mb-3">
+                    <legend class="col-form-label col-sm-2 pt-0">6. Do you have any allergies, disabilities, or others?</legend>
+                    <div class="col-sm-10">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                        <label class="form-check-label" for="gridRadios1">
+                          Allergies
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                          Disabilities
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                          Other
+                        </label>
+                      </div>
+                    </div>
+                </fieldset>
+
+                <div class="col-12">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            Check me out
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </div>
+                
+            </form>
+        
         </div>
-        <div class="view_all" ><a href="{% url 'all_lodges' %}">view all lodges.</a> </div>
-    </section>
 
-  
-    <section id="first-layout">
-       <div> <h4>
-            Find The Best Person To share An Apartment with 
-        </h4></div>
-        <div class="third-content">
-            <label for=""><b></b></label>
-            <input type="text" placeholder="" name="" id="text1"><br>
-            <label for=""><b></b></label>
-            <input type="text" placeholder="" name="" id="text1"><br>
-            <label for=""><b></b></label>
-            <input type="text" placeholder="" name="" id="text1"><br>
-            <button>Find Roommate</button>
-         
-        </div>
-    </section>
-
-
-      
-
-</main>
+    </main>
+</div>
 
 {% endblock content %}
