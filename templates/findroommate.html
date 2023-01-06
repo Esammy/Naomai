@@ -1,0 +1,15 @@
+{% load crispy_forms_tags %}
+<div class="">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <fieldset class="form-control">
+            <legend class="">Find Roommate</legend> 
+            <table>
+            {{ form|crispy}}
+        </table>
+        </fieldset>
+        <div class="">
+            <button class="btn btn-outline-info" type="submit">Submit</button>
+        </div>
+    </form>
+</div>

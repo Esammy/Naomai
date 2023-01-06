@@ -3,12 +3,18 @@
 {% block content %}
 <div class="container">
     
-    <!--Search lodges-->
-    <div>
-        {% include 'search.html' %}
-    </div>
+    
     <div id="content-background">
         <div class="row item" >
+            <form class="d-flex" role="search" method="POST" action="{% url 'search' %}">
+                {% csrf_token %}
+                <input class="form-control me-2" name="searched" type="search" placeholder="Search for lodges..." aria-label="Search">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </form>
+            <!--Search lodges-->
+            <div>
+                {% include 'search.html' %}
+            </div>
         
             {% for lodge in lodges %}     
             <div class="col-md-4 col-lg-3 d-flex align-items-stretch mb-3 mb-lg-0">

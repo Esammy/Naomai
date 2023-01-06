@@ -5,17 +5,6 @@
   background-color: rgb(228, 225, 225);
   padding: 10px 0 10px 10px;
 }
-.find-roomate{
-  background-color: rgb(228, 225, 225);
-  padding: 10px 10px 10px 10px;
-}
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-}
 
 body{
   position: relative;
@@ -32,50 +21,6 @@ main{
  
   margin: 0 2rem;
 }
-  
-  #nav-bar {
-    max-width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto;
-    padding: 0.8rem 0;
-    background-color: grey;
-    text-align: justify;
-}
-
-#nav-bar .nav-middle .middle-link {
-    margin-right: 2rem;
-    color: black;
-    text-decoration: none;
-}
-
-#nav-bar .nav-middle .middle-link:hover {
-    cursor: pointer;
-    color: white;
-}
-
-
-#nav-bar .nav-right .right-link {
-  padding: 0.5rem 2rem;
-  border-radius: .2rem;
-  color: white;
-  font-size: 1rem;
-  margin: 0 0.8rem 0 0;
-  text-decoration: none;
-
-}
-
-
-
-#nav-bar .nav-right a:hover, a:focus {
-  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
-  transform: translateY(-0.25em);
-  color: rgb(66, 94, 66);
-  border-color: rgb(66, 94, 66);
-}
-
-
 
 
 #first-layout{display: flex;

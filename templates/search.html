@@ -9,13 +9,11 @@
                 </a>
                 <div class="desc" data-aos="zoom-out">
                     <h5 class="card-title">{{lodge.name}}</h5>
-                    <p class="card-text">{{lodge.price}}</p>
+                    <p class="card-text">{{lodge.price}} rub</p>
                 
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
-    {% else %}
-     <div><p>{{ searched }} not found...</p></div>
     {% endif %}

@@ -14,7 +14,7 @@ urlpatterns = [
     path('register/', views.register, name= 'register'),
     path('profile/', views.profile, name='profile'),
     path('booked/', views.booked, name='booked'),
-    path('all_lodges/', views.allLodges, name='all_lodges'),
+    #path('all_lodges/', views.allLodges, name='all_lodges'),
 
     path('lodge_detail/<int:pk>/', LodgeDetailView.as_view(), name= 'lodge_detail'),
 
@@ -24,6 +24,13 @@ urlpatterns = [
     path('<str:ref>/', views.verify_payment, name='verify-payment'),
     path('confirm_payment', views.deposit, name='confirm_payment'),
     path('confirm_payment/<int:pk>/', ConfPayment.as_view(), name= 'confirm_payment'),
+    #path("terms", views.KeywordListView.as_view(),name="terms"),
+    #path("terms/<int:page>", views.listing, name="terms-by-page"),
+    path("terms.json", views.listing_api, name="terms-api"),
+    path("list", views.listing, name='list'),
+
+    #path("findroomate", views.findRoomie, name='findroomate'),
+    #url('search/', views.search, name='search'),
     
     ]
 

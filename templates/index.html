@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="ind_page">
     <div class="head-top">
@@ -59,7 +60,8 @@
         
                     {% endfor %}
                 </div>
-                <div class="view_all" ><a href="{% url 'all_lodges' %}">view all lodges.</a> </div>
+                <div class="view_all" ><a href="{% url 'list' %}">view all lodges.</a> </div>
+
             </div>
         </section>
 
@@ -81,183 +83,10 @@
         </section>
     -->
 
-                <!--Form for finding roomate-->
-        <div class="container find-roomate">
-            <div class="row g-3">
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="First name" aria-label="First name">
-                </div>
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
-                </div>
-              </div>
-                <div class="col-md-4">
-                    <label for="inputState" class="form-label">State</label>
-                    <select id="inputState" class="form-select">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                    </select>
-                </div>
-                <fieldset class="row mb-3">
-                    <legend class="col-form-label col-sm-2 pt-0">1. Do you prefer to go to bed early or stay up late?</legend>
-                    <div class="col-sm-10">
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                        <label class="form-check-label" for="gridRadios1">
-                          Early
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
-                          Late
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
-                          I don't care
-                        </label>
-                      </div>
-                    </div>
-                </fieldset>
-
-                <fieldset class="row mb-3">
-                    <legend class="col-form-label col-sm-2 pt-0">2. Do you like to study in silent or with background noise?</legend>
-                    <div class="col-sm-10">
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                        <label class="form-check-label" for="gridRadios1">
-                          Silent
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
-                          Background noise
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
-                          I don't care
-                        </label>
-                      </div>
-                    </div>
-                </fieldset>
-
-                <fieldset class="row mb-3">
-                    <legend class="col-form-label col-sm-2 pt-0">3. Do you like to keep your living space clean and organized?</legend>
-                    <div class="col-sm-10">
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                        <label class="form-check-label" for="gridRadios1">
-                          Yes
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
-                          NO
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
-                          I don't care
-                        </label>
-                      </div>
-                    </div>
-                </fieldset>
-
-                <fieldset class="row mb-3">
-                    <legend class="col-form-label col-sm-2 pt-0">4. Do you expect to share groceries and household items?</legend>
-                    <div class="col-sm-10">
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                        <label class="form-check-label" for="gridRadios1">
-                          Yes
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
-                          NO
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
-                          I don't care
-                        </label>
-                      </div>
-                    </div>
-                </fieldset>
-
-                <fieldset class="row mb-3">
-                    <legend class="col-form-label col-sm-2 pt-0">5. Do you prefer to spend a lot of time with your roommte, or do you prefer to have your own space and time?</legend>
-                    <div class="col-sm-10">
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                        <label class="form-check-label" for="gridRadios1">
-                          Spend time with my roomate
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
-                          Have my own space and time
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
-                          I don't care
-                        </label>
-                      </div>
-                    </div>
-                </fieldset>
-
-                <fieldset class="row mb-3">
-                    <legend class="col-form-label col-sm-2 pt-0">6. Do you have any allergies, disabilities, or others?</legend>
-                    <div class="col-sm-10">
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                        <label class="form-check-label" for="gridRadios1">
-                          Allergies
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
-                          Disabilities
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
-                          Other
-                        </label>
-                      </div>
-                    </div>
-                </fieldset>
-
-                <div class="col-12">
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                        <label class="form-check-label" for="gridCheck">
-                            Check me out
-                        </label>
-                    </div>
-                </div>
-
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Sign in</button>
-                </div>
-                
-            </form>
-        
-        </div>
+    <div>
+      {% include 'findroommate.html' %}
+    </div>
+  
 
     </main>
 </div>
