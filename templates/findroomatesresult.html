@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div>
+    <h3>{{ message }}</h3>
+    <a href="{% url 'findroomateconfirm' %}"><button>Find Roommate</button></a>
+    {% for match in matches %}
+        <p>{{ match }}</p>
+    {% endfor %}
+    <p>
+        go back to the <a href="{% url 'index' %}">main</a>  page
+    </p>
+</div>
+{% endblock content %}

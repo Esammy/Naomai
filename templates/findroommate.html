@@ -8,8 +8,16 @@
             {{ form|crispy}}
         </table>
         </fieldset>
+        
+        {% if user.is_authenticated %}
         <div class="">
             <button class="btn btn-outline-info" type="submit">Submit</button>
         </div>
-    </form>
+        {% else %}
+        <div class="">
+            <p style="color: red;">Please <a href="{% url 'login' %}">login</a> to proceed</p>
+            <button class="btn btn-outline-info" type="submit" disabled>Submit</button>
+        </div>
+        {% endif %}
+    </form> 
 </div>

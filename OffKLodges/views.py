@@ -12,6 +12,7 @@ from django.http import JsonResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 
+current_user_name = []
 def index(request):
     form = FindRoomMateForm()
     if request.method == 'POST':
@@ -21,13 +22,33 @@ def index(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('fname')
-            messages.success(request, f' {username} request has been submitted')
-            return redirect('index')
+            current_user_name.append(username)
+            message = messages.success(request, f' {username} request has been submitted')
+
+            return redirect('findroomateconfirm',)
     context = {
         'lodges': Lodge.objects.all(),
         'form': form,
         }
     return render(request, 'index.html', context)
+
+def roommateResult(request):
+    if current_user_name:
+        curr_u_n = current_user_name[-1]
+        all_FRM = FindRoomMates.objects.all()
+        for i in all_FRM:
+            if str(curr_u_n) == str(i):
+                user_sc = i.match_score
+        matches = []
+        for j in all_FRM:
+            if int(user_sc) > j.match_score + 10 or int(user_sc) < j.match_score - 10:
+                match_names = j.fname
+                matches.append(match_names)
+    context = {
+        'matches': matches
+    }
+    return render(request, 'findroomatesresult.html', context)
+
 
 def login(request):
     return render(request, 'login.html')
@@ -183,7 +204,7 @@ def listing_api(request):
 #@login_required
 def findRoomie(request):
     if request.method == 'POST':
-        form = FindRoomMateForm(request.POST)
+        form = FindRoomMateForm(request.POST, instance=request.user)
 
         if form.is_valid():
             form.save()

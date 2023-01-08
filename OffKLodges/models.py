@@ -220,8 +220,7 @@ class FindRoomMates(models.Model):
         ("I don't care","I don't care"),
     )
 
-
-
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     fname = models.CharField(max_length=50)
     lname = models.CharField(max_length=50)
     email = models.EmailField()

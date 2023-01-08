@@ -86,6 +86,9 @@
     <div>
       {% include 'findroommate.html' %}
     </div>
+    {% if message %}
+        <div><p>{{ message }}</p></div>
+    {% endif %}
   
 
     </main>
