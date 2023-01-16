@@ -2,30 +2,42 @@
 {% load static %}
 {% block content %}
 <div class="container">
+  <br>
+  <br>
   <form class="d-flex" role="search" method="POST" action="{% url 'search' %}">
     {% csrf_token %}
     <input class="form-control me-2" name="searched" type="search" placeholder="Search for lodges..." aria-label="Search">
     <button class="btn btn-outline-secondary" type="submit">Search</button>
   </form>
+  <br>
+  <br>
   <div>
     {% include 'search.html' %}
   </div>
+  <br>
 
-  <div class="row item" >
-    
-          
-    {% for lodge in page_obj %}     
-    <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-5 mb-lg-0">
-        <div class="icon-box card-body" data-aos="fade-up">
-            <a target="_blank" id="myImg" href="{% url 'lodge_detail' lodge.id %}">
-                <img src="{{ lodge.imageURL }}" class="card-img-top" alt="Lodge photos" width="300" height="200">
-            </a>
-            <div class="desc" data-aos="zoom-out">
-                <h5 class="card-title">{{lodge.name}}</h5>
-                <p class="card-text">{{lodge.price}}</p>
-            
-            </div>
-        </div>
+  <div class="lodgecontainer justify-content-center">
+    {% for lodge in page_obj %} 
+    <div class="smallercont" data-aos="fade-up">
+      <div class="lodgebox">
+          <div class="lodgeimage">
+              <img class="lodgeImg" src="{{ lodge.imageURL }}" alt="Lodge photos" width="170" height="200">
+          </div>
+
+      
+          <div class="lodgetext" data-aos="zoom-out">
+              <h5 class="lodgename">{{lodge.name}}</h5>
+              <p class="lodgeconv">{{lodge.self_con}}</p>
+              <p class="lodgeamen">{{lodge.elec_water}}</p>
+              <p class="lodgedis">{{lodge.distance}}</p>
+              <p>Price: <span class="lodgeprice">N{{lodge.price}}</span></span></p>
+              
+          </div>
+      </div>
+      
+      <div  id="viewdetails">
+          <a  href="{% url 'lodge_detail' lodge.id %}"><button class="detailedview">View Apartment</button></a>
+      </div>
     </div>
 
     {% endfor %}
@@ -73,6 +85,5 @@
   </nav>
   {% endif %}
 </div>
-
 {% endblock content %}
 

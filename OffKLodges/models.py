@@ -6,10 +6,14 @@ import secrets
 from .paystack import PayStack
 import numpy as np
 import datetime
+from django import forms
 
 class Lodge(models.Model):
     name = models.CharField(max_length=200, null=True)
     homeImg = models.ImageField(default='Profile-Photo-Place-Holder.PNG', upload_to='home_img', null=True, blank=True)
+    self_con = models.CharField(default='1 Bedroom Self contain', max_length=200)
+    elec_water = models.CharField(default='Stable Electricity and Water', max_length=200)
+    distance = models.CharField(default='200 meters from school', max_length=200)
     price = models.FloatField()
 
     def __str__(self):
@@ -36,7 +40,6 @@ class LodgeProperties(models.Model):
 
     roomsTotalNum = models.PositiveSmallIntegerField()
     roomsAvailable = models.PositiveSmallIntegerField()
-    selfCon = models.BooleanField(default=False)
 
 
     def __str__(self):
@@ -152,8 +155,7 @@ class Payment(models.Model):
         return False
 
 
-
-class FindRoomMates(models.Model):
+class FindRoomMate(models.Model):
 
         
     sex_choice = (
@@ -220,10 +222,11 @@ class FindRoomMates(models.Model):
         ("I don't care","I don't care"),
     )
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    #user = models.OneToOneField(User, on_delete=models.CASCADE)
     fname = models.CharField(max_length=50)
     lname = models.CharField(max_length=50)
-    email = models.EmailField()
+    phone_number = models.IntegerField()
+    email_i = models.EmailField()
     state = models.CharField(max_length=200, choices = state_choice, default = state_choice[-1][1])
     sex = models.CharField(max_length=200, choices = sex_choice, default = sex_choice[-1][1])
     level = models.CharField(max_length=200, choices = level_choice, default = level_choice[-1][1])
@@ -257,9 +260,10 @@ class FindRoomMates(models.Model):
         max_length=200, 
         choices = allergies_disabilities_others, 
         default = allergies_disabilities_others[-1][1])
-    date_created = models.DateField(default = datetime.date.today)
+    date_created = models.DateTimeField(default = datetime.date.today)
 
     match_score = models.IntegerField()
+
 
     def __str__(self):
         return str(self.fname)
@@ -279,16 +283,14 @@ class FindRoomMates(models.Model):
         total_scores = []
         for i in range(len(attri_)):
             if attri_[i] == choice_att_[i][0][1]:
-                total_scores.append(1)
-            if attri_[i] == choice_att_[i][1][1]:
-                total_scores.append(3)
-            if attri_[i] == choice_att_[i][2][1]:
                 total_scores.append(5)
+            elif attri_[i] == choice_att_[i][1][1]:
+                total_scores.append(3)
+            elif attri_[i] == choice_att_[i][2][1]:
+                total_scores.append(1)
         
         x = np.sum(total_scores) + 45
     
         if x:
             self.match_score = x
         super().save(*args, **kwargs)
-        
-    

@@ -2,11 +2,12 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class=" container d-flex row justify-content-center align-item-center py-md-5 py-3 mb-lg-0" style="min-height: 90vh;">
+<div class=" container justify-content-center align-item-center">
     <div class="desc" data-aos="zoom-out">
-      <fieldset>
+      <fieldset class="confirm_payment">
         <form id="paymentForm" method="post">
             <h4>Confirm Payment</h4>
+            <hr>
             <h5>{{request.user.email}}</h5>
             <h5> Lodge: {{object.lodge}} </h5>
             <h5>Price: {{object.lodge.price}}</h5>

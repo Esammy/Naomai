@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .form import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, PaymentForm, FindRoomMateForm
 from django.contrib import messages
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from .models import LodgeProperties, Lodge, Payment, FindRoomMates
+from .models import LodgeProperties, Lodge, Payment, FindRoomMate
 from django.views.generic import DetailView, ListView
 from django.shortcuts import render, redirect
 from django.conf import settings
@@ -11,29 +11,79 @@ from django.core.paginator import Paginator#, zEmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
+from django.core.mail import send_mail
 
 current_user_name = []
 def index(request):
-    form = FindRoomMateForm()
+
     if request.method == 'POST':
         form = FindRoomMateForm(request.POST)
         
-
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('fname')
-            current_user_name.append(username)
-            message = messages.success(request, f' {username} request has been submitted')
+            fname = form.cleaned_data.get('fname')
+            current_user_name.append(fname)
+            messages.success(request, f' {fname} request has been submitted')
 
-            return redirect('findroomateconfirm',)
-    context = {
-        'lodges': Lodge.objects.all(),
-        'form': form,
-        }
+            return redirect('findroomateconfirm')
+            #return redirect('login')
+    else:
+        
+        context = {
+            'lodges': Lodge.objects.all()[:4],
+            'form': FindRoomMateForm(),
+            }
     return render(request, 'index.html', context)
 
+def last_score():
+    scores = FindRoomMate.objects.order_by('date_created')
+    score_list = []
+    for i in scores:
+        score_list.append(i)
+    if score_list:
+        return score_list[-1]
+    else:
+        return None
+    
+
 def roommateResult(request):
-    if current_user_name:
+    persons = FindRoomMate.objects.order_by('date_created')
+    #u_form = UserUpdateForm(instance=request.user)
+    l_score = last_score()
+    thresh_h = 10
+    print('This is the last person to submit form: ', l_score.fname, 'socre:', l_score.match_score)
+    this_info = []
+    person_matched = []
+    
+    
+    new_person = []
+    for person in persons:
+        new_person.append(person)
+    this_person = []
+    for i in new_person[1:-1]:
+        print(i)
+        if i.sex == l_score.sex:
+            if i.state == l_score.state:
+                if i.earlywake == l_score.earlywake:
+                    if i.noise == l_score.noise:
+                        if i.organizedSpace == l_score.organizedSpace:
+                            if i.grocries == l_score.grocries:
+                                if i.personalSpace == l_score.personalSpace:
+                                    if i.disabilites == l_score.disabilites:
+                                        this_person.append(i)
+        
+    context = {
+        'this_info': this_info,
+        'person_matched': person_matched,
+        'this_person': this_person,
+        'l_score': l_score
+        #'[u_form':u_form
+        }
+    
+    return render(request, 'findroomatesresult.html', context)
+
+
+'''if current_user_name:
         curr_u_n = current_user_name[-1]
         all_FRM = FindRoomMates.objects.all()
         for i in all_FRM:
@@ -46,21 +96,29 @@ def roommateResult(request):
                 matches.append(match_names)
     context = {
         'matches': matches
-    }
-    return render(request, 'findroomatesresult.html', context)
-
+    }'''
 
 def login(request):
     return render(request, 'login.html')
 
+
 def register(request):
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST, instance=request.user)
-        form.instance.user = request.user
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Account for {username} has been created! Your are now able to log in')
+            user_email = form.cleaned_data.get('email') 
+            messages.success(request, f'Account for {username} has been created!')
+
+            subject = 'welcome to Naomi Acc Sys'
+            message = (f"Hi {username}, thank you for registering in Naomi's third party lodge acc system.")
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [user_email, ]
+            print('from: ', email_from)
+            print('to:', recipient_list)
+            send_mail( subject, message, email_from, recipient_list )
+
             return redirect('login')
     else:
         form = UserRegisterForm()
@@ -82,6 +140,7 @@ def profile(request):
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
     context = {
+        'l_score': last_score(),
         'u_form': u_form,
         'p_form': p_form
     }
@@ -123,7 +182,7 @@ def verify_payment(request: HttpRequest, ref:str) -> HttpResponse:
 def booked(request):
     context = {'lodges': Lodge.objects.all()}
     
-    return render(request, 'booked.html', context)
+    return render(request, 'all_lodges.html', context)
 
 def search(request):
     if request.method == "POST":
@@ -174,7 +233,7 @@ class KeywordListView(ListView):
 
 def listing(request):
     lodges = Lodge.objects.all().order_by("name")
-    paginator = Paginator(lodges, per_page=2)
+    paginator = Paginator(lodges, per_page=6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {"page_obj": page_obj, "lodges":lodges}

@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django_filters',
     'crispy_forms',
     'OffKLodges.apps.OffklodgesConfig',
+    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -130,3 +131,12 @@ PAYSTACK_SECRET_KEY = os.environ.get('PAYSTACK_PUBLIC_TEST_KEY')
 PAYSTACK_PUBLIC_KEY = os.environ.get('PAYSTACK_SECRET_TEST_KEY')
 
 #CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+'urljnaqwigohanpa'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'egwusamuel2015@gmail.com'
+EMAIL_HOST_PASSWORD = 'urljnaqwigohanpa'
