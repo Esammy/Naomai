@@ -267,3 +267,23 @@ tr:nth-child(even){
 #web{
   padding: 0 20px;
 }
+.p_img{
+  border-left: 1px solid white;
+  padding-left: 7px;
+}
+
+.mymodal{
+  margin-top: 10px;
+  
+}
+
+.filtersec{
+  display: flex;
+  justify-content: space-between;
+}
+.searchfilt{
+  display: flex;
+}
+.pricefilt{
+  display: flex;
+}

@@ -5,14 +5,14 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-md-4 col-lg-4 d-flex align-items-stretch mb-5 mb-lg-0 detail-item">
-            <div class="sidenaov">
+        <div class="col-md-4 col-lg-4 d-flex align-items-stretch mb-5 mb-lg-0 detail-item ">
+            <div class="sidenaov mymodal">
                 <img src="{{ user.profile.image.url }}" alt="{{ user.username }}" style="width:100%">
 
                 <h2 class="account-heading">{{ user.username }}</h2>
-                <p class="text-secondary">Level: {{ l_score.level }}</p>
+                <p class="text-secondary">Level: {{ user.profile.uni_level }}</p>
                 <p class="text-secondary">Email: {{ user.email }}</p>
-                <p class="text-secondary">phone number: {{ l_score.phone_number }}</p>
+                <p class="text-secondary">phone number: {{ user.profile.phone_number }}</p>
 
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -20,7 +20,7 @@
                 </button>
             
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">

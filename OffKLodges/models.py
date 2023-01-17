@@ -102,8 +102,20 @@ class LodgeProperties(models.Model):
         return url      
 
 class Profile(models.Model):
+
+    level_choice = (
+        ('100L','100L'),
+        ('200L','200L'),
+        ('300L','300L'),
+        ('400L','400L'),
+        ('500L','500L')
+        )
+
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='Profile-Photo-Place-Holder.png', upload_to='profile_pics')
+    uni_level = models.CharField(max_length=200, choices = level_choice, default = level_choice[0][1])
+    phone_number = models.IntegerField(null=True)
     email = models.EmailField(default= 'egwusamuel2015@gmail.com')
 
     def __str__(self):

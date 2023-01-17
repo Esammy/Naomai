@@ -3,12 +3,26 @@
 {% block content %}
 <div class="container">
   <br>
-  <br>
-  <form class="d-flex" role="search" method="POST" action="{% url 'search' %}">
-    {% csrf_token %}
-    <input class="form-control me-2" name="searched" type="search" placeholder="Search for lodges..." aria-label="Search">
-    <button class="btn btn-outline-secondary" type="submit">Search</button>
-  </form>
+  <div class="filtersec">
+    
+    <div class="searchfilt">
+      <form class="d-flex" role="search" method="POST" action="{% url 'search' %}">
+      {% csrf_token %}
+      
+        <input class="form-control me-2" name="searched" type="search" placeholder="Search for lodges..." aria-label="Search">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+      </form>
+    </div>
+    <div class="pricefilt"></div>
+      <form class="d-flex" role="filter" method="POST" action="{% url 'filters' %}">
+        {% csrf_token %}
+        <input class="form-control me-2" name="minimum" type="number" placeholder="Minimum..." aria-label="Search" required>
+        
+        <input class="form-control me-2" name="maximum" type="number" placeholder="Maximun..." aria-label="Search" required>
+        <button class="btn btn-outline-secondary" type="submit">filter</button>
+      </form>
+    </div>
+  </div>
   <br>
   <br>
   <div>

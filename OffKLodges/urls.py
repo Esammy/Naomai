@@ -20,6 +20,7 @@ urlpatterns = [
     path('lodge_detail/<int:pk>/', LodgeDetailView.as_view(), name= 'lodge_detail'),
 
     url('search/', views.search, name='search'),
+    url('filters/', views.filter, name='filters'),
 
     url('initiate_payment/', views.initiate_payment, name='initiate_payment'),
     path('<str:ref>/', views.verify_payment, name='verify-payment'),

@@ -55,13 +55,17 @@ def roommateResult(request):
     this_info = []
     person_matched = []
     
-    
     new_person = []
     for person in persons:
         new_person.append(person)
     this_person = []
+    l_scores_value = [l_score.sex, l_score.state, l_score.earlywake, 
+                        l_score.noise, l_score.grocries, l_score.personalSpace,
+                        l_score.organizedSpace, l_score.disabilites, l_score.level
+    ]
+
+
     for i in new_person[1:-1]:
-        print(i)
         if i.sex == l_score.sex:
             if i.state == l_score.state:
                 if i.earlywake == l_score.earlywake:
@@ -70,7 +74,9 @@ def roommateResult(request):
                             if i.grocries == l_score.grocries:
                                 if i.personalSpace == l_score.personalSpace:
                                     if i.disabilites == l_score.disabilites:
-                                        this_person.append(i)
+                                        if i.level == l_score.level:
+                                            this_person.append(i)
+        
         
     context = {
         'this_info': this_info,
@@ -83,20 +89,6 @@ def roommateResult(request):
     return render(request, 'findroomatesresult.html', context)
 
 
-'''if current_user_name:
-        curr_u_n = current_user_name[-1]
-        all_FRM = FindRoomMates.objects.all()
-        for i in all_FRM:
-            if str(curr_u_n) == str(i):
-                user_sc = i.match_score
-        matches = []
-        for j in all_FRM:
-            if int(user_sc) > j.match_score + 10 or int(user_sc) < j.match_score - 10:
-                match_names = j.fname
-                matches.append(match_names)
-    context = {
-        'matches': matches
-    }'''
 
 def login(request):
     return render(request, 'login.html')
@@ -179,40 +171,6 @@ def verify_payment(request: HttpRequest, ref:str) -> HttpResponse:
 
 
 
-def booked(request):
-    context = {'lodges': Lodge.objects.all()}
-    
-    return render(request, 'all_lodges.html', context)
-
-def search(request):
-    if request.method == "POST":
-        searched = request.POST.get('searched')
-        results = Lodge.objects.filter(name__contains=searched)
-        lodges = Lodge.objects.all()
-        return render(request, 'booked.html', {'searched':searched, 'results':results, 'lodges':lodges})
-    else:
-        return render(request, 'booked.html',)    
-
-'''
-def allLodges(request):
-    lodge_list = Lodge.objects.all()
-    page = object.GET.get('page', 1)
-    paginator = Paginator(lodge_list, 2)
-
-    try:
-        lodges = paginator.page(page)
-    except PageNotAnInteger:
-        lodges = paginator.page(1)
-    except zEmptyPage:
-        lodges = paginator.page(paginator.num_pages)
-
-    context = {
-        'lodges': lodges,
-    }
-
-    #context = {'lodges': Lodge.objects.all()}
-    return render(request, 'all_lodges.html', context)
- '''
 
 class LodgeDetailView(DetailView):
     model = LodgeProperties
@@ -223,13 +181,6 @@ class LodgeDetailView(DetailView):
 class ConfPayment(DetailView):
     model = LodgeProperties
     template_name = 'confirm_payment.html'
-
-'''
-class KeywordListView(ListView):
-    paginate_by = 2
-    model = Lodge
-    template_name = "all_lodges.html"
-'''
 
 def listing(request):
     lodges = Lodge.objects.all().order_by("name")
@@ -282,3 +233,18 @@ def search(request):
         return render(request, 'list.html', {'searched':searched, 'results':results, 'lodges':lodges})
     else:
         return render(request, 'list.html',)
+
+def filter(request):
+    if request.method == "POST":
+        minimum = request.POST.get('minimum')
+        maximum = request.POST.get('maximum')
+        lodges = Lodge.objects.all()
+        price_query = []
+        for i in lodges:
+            if i.price >= int(minimum) and i.price <= int(maximum):
+                #print(i.price)
+                price_query.append(i)
+        return render(request, 'list.html', {'price_query': price_query})
+    else:
+        return render(request, 'list.html',)
+    

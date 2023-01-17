@@ -54,9 +54,9 @@
           <li><a href="{% url 'list' %}">Available Apartment</a></li>
           <li><a href="#findR">Find Roomate</a></li>
           <li><a href="#">Contact</a></li>
-          <span class="logreg">
+          <span class="logreg p_img">
             {% if user.is_authenticated %}
-            <img class="rounded-circle account-img " height="40px" width="40px" 
+            <img class="rounded-circle account-img" height="40px" width="40px" 
                 src="{{ user.profile.image.url }}">
               <li><a class="dropdown-item" href="{% url 'profile' %}">Welcome {{ user.username }}</a></li>
               <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>

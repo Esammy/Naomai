@@ -43,7 +43,7 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image']
+        fields = ['uni_level', 'phone_number', 'image']
 
 class PaymentForm(forms.ModelForm):
     class Meta:
