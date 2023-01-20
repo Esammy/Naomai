@@ -1,10 +1,11 @@
 from . import views
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import LodgeDetailView, ConfPayment
+from .views import LodgeDetailView, ConfPayment, Lodge_booking
 from django.conf.urls import url
+import notifications.urls
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -33,6 +34,11 @@ urlpatterns = [
 
     #path("findroomate", views.findRoomie, name='findroomate'),
     #url('search/', views.search, name='search'),
+
+    #path('booking/', views.bookings, name='booking'),
+    path('booking/<int:id>/', views.bookings, name='booking'),
+    path('message', views.message, name='message'),
+    url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
     
     ]
 

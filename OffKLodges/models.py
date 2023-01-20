@@ -306,3 +306,12 @@ class FindRoomMate(models.Model):
         if x:
             self.match_score = x
         super().save(*args, **kwargs)
+
+class BookedLodge(models.Model):
+    lodge = models.OneToOneField(Lodge, on_delete=models.CASCADE)
+    name = forms.CharField( max_length=100)
+    user_id = models.IntegerField()
+    price = models.IntegerField()
+
+    def __str__(self):
+        return self.name

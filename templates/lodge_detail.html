@@ -18,8 +18,14 @@
         <p class="card-text">Rooms Total: {{object.roomsTotalNum}}</p>
         <p class="card-text">Rooms Available: {{object.roomsAvailable}}</p>
 
-        <div class="rentdiv">
-          <a href="{% url 'confirm_payment' object.id %}" class="rent"><button class="rentbutton">Rent</button></a>
+        <div class="rb_act">
+          <div class="book">
+            <a href="{% url 'booking' object.id %}" class="book"><button class="rentbutton">Book</button></a>
+          </div>
+          <div class="rentdiv">
+            <a href="{% url 'confirm_payment' object.id %}" class="rent"><button class="rentbutton">Rent</button></a>
+          </div>
+          
         </div>
       </div>
     </div>

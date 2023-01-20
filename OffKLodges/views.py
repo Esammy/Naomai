@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .form import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, PaymentForm, FindRoomMateForm
+from .form import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, PaymentForm, FindRoomMateForm, BookedLodgeForm
 from django.contrib import messages
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from .models import LodgeProperties, Lodge, Payment, FindRoomMate
@@ -12,6 +12,9 @@ from django.http import JsonResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.core.mail import send_mail
+
+from .models import User
+from notifications.signals import notify
 
 current_user_name = []
 def index(request):
@@ -28,7 +31,6 @@ def index(request):
             return redirect('findroomateconfirm')
             #return redirect('login')
     else:
-        
         context = {
             'lodges': Lodge.objects.all()[:4],
             'form': FindRoomMateForm(),
@@ -169,18 +171,34 @@ def verify_payment(request: HttpRequest, ref:str) -> HttpResponse:
         messages.error(request, "Verification Failed.")    
     return redirect('initiate-payment')
 
+def lodgeview(request, id):
+    try:
+        lodge = LodgeProperties
+        lodge_id = get_object_or_404(lodge, id=id)
+        users = User.objects.all()
+        print(request.user)
+        user = User.objects.get(username=request.user)
 
-
+        return render(request, 'lodge_detail.html', 
+                    {'users': users, 'user': user, 'lodge':lodge, 'lodge_id':lodge_id})
+    except Exception as e:
+        print(e)
+        return HttpResponse("Something is wrong at the moment.")
 
 class LodgeDetailView(DetailView):
     model = LodgeProperties
     template_name = 'lodge_detail.html'
     #ordering = ['-date-poste']
 
- 
 class ConfPayment(DetailView):
     model = LodgeProperties
     template_name = 'confirm_payment.html'
+
+class Lodge_booking(DetailView):
+    model = LodgeProperties
+    #user = User.objects.get(username=request.user)
+    template_name = 'lodge_booking.html'
+
 
 def listing(request):
     lodges = Lodge.objects.all().order_by("name")
@@ -248,3 +266,34 @@ def filter(request):
     else:
         return render(request, 'list.html',)
     
+
+def bookings(request, id):
+    try:
+        lodge = LodgeProperties
+        lodge_id = get_object_or_404(lodge, id=id)
+        users = User.objects.all()
+        print(request.user)
+        user = User.objects.get(username=request.user)
+
+        return render(request, 'lodge_booking.html', 
+                    {'users': users, 'user': user, 'lodge':lodge, 'lodge_id':lodge_id})
+    except Exception as e:
+        print(e)
+        return HttpResponse("Please login from admin site for sending messages.")
+
+def message(request):
+    try:
+        if request.method == 'POST':
+            #sender = User.objects.get(username=request.user)
+            sender = User.objects.get(username=request.user)
+            receiver = User.objects.get(id=request.POST.get('user_id'))
+            notify.send(sender, recipient=receiver, verb='Message', description=request.POST.get('message'))
+            return redirect('index')
+        else:
+            return HttpResponse("Invalid request")
+    except Exception as e:
+        print(e)
+        return HttpResponse("Please login from admin site for sending messages")
+
+def lodge_bookings_msg(request):
+    pass

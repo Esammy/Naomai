@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import fields
-from .models import Profile, Payment, FindRoomMate
+from .models import Profile, Payment, FindRoomMate, BookedLodge
 from django.forms import ModelForm, TextInput, EmailInput, PasswordInput
 
 
@@ -114,3 +114,8 @@ class FindRoomMateForm(forms.ModelForm):
                 'class':"form-select",
             })
         }
+
+class BookedLodgeForm(forms.ModelForm):
+    class meta:
+        model = BookedLodge
+        fields = ['name', 'user_id', 'price', 'lodge']

@@ -71,8 +71,25 @@
             {% endif %}
           </span>
         </ul>
+        <!-- Icon -->
+        <a href="" class="text-light btn btn-secondary  dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class='fa fa-bell-o bells' style='color: white' ></i>
+          <span class="badge rounded-pill badge-notification bg-danger">1</span>
+        </a>
+        
+        <div class="dropdown-menu noti_home" aria-labelledby="dropdownMenu2">
+          {% for notification in  user.notifications.unread %}
+            <div class="noti_word">
+              
+              <b>id: {{ test }}</b>
+              Message from <b>{{ notification.actor }}</b>
+              <button class="dropdown-item" type="button">{{ notification.description }}</button>			
+            </div>
+            <div class="dropdown-divider"></div>
+          {% endfor %}
+        </div>
       </div>
-      
+          
       {% if message %}
         {% for message in messages %}
           <div class="alert alert-{{ message.tags }}">

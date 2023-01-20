@@ -287,3 +287,19 @@ tr:nth-child(even){
 .pricefilt{
   display: flex;
 }
+.rb_act{
+  display: flex;
+  justify-content: space-between;
+}
+
+.bells{
+  width: 10px;
+  height: 10px;
+}
+.noti_word{
+  padding: 10px;
+}
+
+.noti_home{
+  border-radius: 10px;
+}
