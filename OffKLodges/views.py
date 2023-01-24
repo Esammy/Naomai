@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .form import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, PaymentForm, FindRoomMateForm, AgentPersonalInfoForm, AgentPropertiesForm, BookedLodgeForm
+from .form import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FindRoomMateForm, AgentPersonalInfoForm, AgentPropertiesForm #, BookedLodgeForm, PaymentForm,
 from django.contrib import messages
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from .models import LodgeProperties, Lodge, NewPayment, Payment, FindRoomMate, AgentPersonalInfo
+from .models import LodgeProperties, Lodge, NewPayment, FindRoomMate, AgentPersonalInfo #, Payment,
 from django.views.generic import DetailView, ListView
 from django.shortcuts import render, redirect
 from django.conf import settings
@@ -172,27 +172,27 @@ def ini_pay(request, id):
         #return redirect('confirm_payment', id)
 
 
-def initiate_payment(request: HttpRequest, id:int) -> HttpResponse:
-    if request.method == "POST":
-        lodge = LodgeProperties
-        lodge_id = get_object_or_404(lodge, id=id)
+# def initiate_payment(request: HttpRequest, id:int) -> HttpResponse:
+#     if request.method == "POST":
+#         lodge = LodgeProperties
+#         lodge_id = get_object_or_404(lodge, id=id)
 
-        payment_form = PaymentForm(request.POST)
-        if payment_form.is_valid():
-            payment = payment_form.save()
-            return render(request, 'make_payment.html', {'lodge_id':lodge_id ,'payment':payment, 'paystack_public_key': settings.PAYSTACK_PUBLIC_KEY})#
-    else:
-        payment_form = PaymentForm()
-        return render(request, 'initiate_payment.html', {'payment_form':payment_form})   
+#         payment_form = PaymentForm(request.POST)
+#         if payment_form.is_valid():
+#             payment = payment_form.save()
+#             return render(request, 'make_payment.html', {'lodge_id':lodge_id ,'payment':payment, 'paystack_public_key': settings.PAYSTACK_PUBLIC_KEY})#
+#     else:
+#         payment_form = PaymentForm()
+#         return render(request, 'initiate_payment.html', {'payment_form':payment_form})   
 
-def verify_payment(request: HttpRequest, ref:str) -> HttpResponse:
-    payment = get_object_or_404(Payment, ref=ref)
-    verified = payment.verify_payment()
-    if verified:
-        messages.success(request, "Verification Successfull.")
-    else:
-        messages.error(request, "Verification Failed.")    
-    return redirect('initiate-payment')
+# def verify_payment(request: HttpRequest, ref:str) -> HttpResponse:
+#     payment = get_object_or_404(Payment, ref=ref)
+#     verified = payment.verify_payment()
+#     if verified:
+#         messages.success(request, "Verification Successfull.")
+#     else:
+#         messages.error(request, "Verification Failed.")    
+#     return redirect('initiate-payment')
 
 
 def lodgeview(request, id):
@@ -218,10 +218,10 @@ class ConfPayment(DetailView):
     model = LodgeProperties
     template_name = 'confirm_payment.html'
 
-class Lodge_booking(DetailView):
-    model = LodgeProperties
-    #user = User.objects.get(username=request.user)
-    template_name = 'lodge_booking.html'
+# class Lodge_booking(DetailView):
+#     model = LodgeProperties
+#     #user = User.objects.get(username=request.user)
+#     template_name = 'lodge_booking.html'
 
 
 def listing(request):
@@ -323,33 +323,43 @@ def message(request):
 
 
 def agentPersonalInfo(request):
-    if request.method == 'POST':
-        form = AgentPersonalInfoForm(request.POST)
-        
-        if form.is_valid():
-            agent = form.save(commit=False)
-            agent.user = request.user
-            agent.save()
-            agent_fname = form.cleaned_data.get('agent_fname')
-            messages.success(request, f' {agent_fname} request has been submitted')
+    try:
+        if request.method == 'POST':
+            form = AgentPersonalInfoForm(request.POST)
+            
+            if form.is_valid():
+                agent = form.save(commit=False)
+                agent.user = request.user
+                agent.save()
+                agent_fname = form.cleaned_data.get('agent_fname')
+                messages.success(request, f' {agent_fname} request has been submitted')
 
-            #return HttpResponse("Your response has been submitted successfully. The admin will contact you in two days time")
-            return redirect('agentProperties')
-    else:
-        form = AgentPersonalInfoForm()
-    return render(request, 'agentpersonalinfo.html', {'form': form})
+                #return HttpResponse("Your response has been submitted successfully. The admin will contact you in two days time")
+                return redirect('agentProperties')
+        else:
+            form = AgentPersonalInfoForm()
+        return render(request, 'agentpersonalinfo.html', {'form': form})
+    except Exception as e:
+        print(e)
+        #return HttpResponse("Account has been created for this user proceed to properties upload by typing this ")
+        return render(request, 'agenterrorpage.html')
+
 
 def agentProperties(request):
-    if request.method == 'POST':
-        form = AgentPropertiesForm(request.POST, request.FILES)
-        
-        if form.is_valid():
-            # agent = form.save(commit=False)
-            # agent.agent_ersonal_info = request.user.agentproperties
-            form.save()
-            messages.success(request, f' request to upload properties has been submitted')
+    try:
+        if request.method == 'POST':
+            form = AgentPropertiesForm(request.POST, request.FILES)
+            
+            if form.is_valid():
+                # agent = form.save(commit=False)
+                # agent.agent_ersonal_info = request.user.agentproperties
+                form.save()
+                messages.success(request, f' request to upload properties has been submitted')
 
-            return HttpResponse("Your response has been submitted successfully. The admin will contact you in two days time")
-    else:
-        form = AgentPropertiesForm()
-    return render(request, 'agentproperties.html', {'form': form})
+                return HttpResponse("Your response has been submitted successfully. The admin will contact you in two days time")
+        else:
+            form = AgentPropertiesForm()
+        return render(request, 'agentproperties.html', {'form': form})
+    except Exception as e:
+        print(e)
+        return HttpResponse("Please login from admin site for sending messages")

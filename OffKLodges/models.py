@@ -12,7 +12,7 @@ import os
 class Lodge(models.Model):
     name = models.CharField(max_length=200, null=True)
     homeImg = models.ImageField(default='Profile-Photo-Place-Holder.PNG', upload_to='home_img', null=True, blank=True)
-    self_con = models.CharField(default='1 Bedroom Self contain', max_length=200)
+    # self_con = models.CharField(default='1 Bedroom Self contain', max_length=200)
     elec_water = models.CharField(default='Stable Electricity and Water', max_length=200)
     distance = models.CharField(default='200 meters from school', max_length=200)
     price = models.FloatField()
@@ -133,7 +133,7 @@ class Profile(models.Model):
             img.save(self.image.path)
 
 class NewPayment(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     lodge_name = models.CharField(max_length=50)
     amount = models.PositiveIntegerField()
     email = models.EmailField()
@@ -143,40 +143,40 @@ class NewPayment(models.Model):
         return f'{self.user.username}'
 
 
-class Payment(models.Model):
-    amount = models.PositiveIntegerField()
-    ref = models.CharField(max_length=200)
-    email = models.EmailField()
-    verified = models.BooleanField(default=False)
-    date_created = models.DateTimeField(auto_now_add=True)
+# class Payment(models.Model):
+#     amount = models.PositiveIntegerField()
+#     ref = models.CharField(max_length=200)
+#     email = models.EmailField()
+#     verified = models.BooleanField(default=False)
+#     date_created = models.DateTimeField(auto_now_add=True)
 
-    class meta:
-        ordering = ('-date_created',)
+#     class meta:
+#         ordering = ('-date_created',)
 
-    def __str__(self) -> str:
-        return f"payment: {self.amount}"  
+#     def __str__(self) -> str:
+#         return f"payment: {self.amount}"  
 
-    def save(self, *args, **kwargs) -> None:
-        while not self.ref:
-            ref = secrets.token_urlsafe(50)
-            objects_with_similar_ref = Payment.objects.filter(ref=ref)
-            if not objects_with_similar_ref:
-                self.ref = ref
-            super().save(*args, **kwargs)  
+#     def save(self, *args, **kwargs) -> None:
+#         while not self.ref:
+#             ref = secrets.token_urlsafe(50)
+#             objects_with_similar_ref = Payment.objects.filter(ref=ref)
+#             if not objects_with_similar_ref:
+#                 self.ref = ref
+#             super().save(*args, **kwargs)  
 
-    def amount_value(self) -> int:
-        return self.amount * 100   
+#     def amount_value(self) -> int:
+#         return self.amount * 100   
 
-    def verify_payment(self):
-        paystack = PayStack()
-        status, result = paystack.verify_payment(self.ref, self.amount)
-        if status:
-            if result['amount'] / 100 == self.amount:
-                self.verified = True
-            self.save()
-        if self.verified:
-            return True
-        return False
+#     def verify_payment(self):
+#         paystack = PayStack()
+#         status, result = paystack.verify_payment(self.ref, self.amount)
+#         if status:
+#             if result['amount'] / 100 == self.amount:
+#                 self.verified = True
+#             self.save()
+#         if self.verified:
+#             return True
+#         return False
 
 
 class FindRoomMate(models.Model):
@@ -319,14 +319,14 @@ class FindRoomMate(models.Model):
             self.match_score = x
         super().save(*args, **kwargs)
 
-class BookedLodge(models.Model):
-    lodge = models.OneToOneField(Lodge, on_delete=models.CASCADE)
-    name = forms.CharField( max_length=100)
-    user_id = models.IntegerField()
-    price = models.IntegerField()
+# class BookedLodge(models.Model):
+#     lodge = models.OneToOneField(Lodge, on_delete=models.CASCADE)
+#     name = forms.CharField( max_length=100)
+#     user_id = models.IntegerField()
+#     price = models.IntegerField()
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 
 class AgentPersonalInfo(models.Model):
@@ -360,7 +360,8 @@ class AgentPersonalInfo(models.Model):
     
     
     def __str__(self):
-        return self.agent_fname + self.agent_lname
+        return self.agent_fname +' '+ self.agent_lname
+
 
 # def get_upload_path(instance, filename):
 #     return 'documents/{0}/{1}'.format(instance.user.username, filename)

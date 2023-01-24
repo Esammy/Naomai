@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import fields
-from .models import Profile, Payment, FindRoomMate, BookedLodge, AgentProperties, AgentProperties, AgentPersonalInfo, NewPayment
+from .models import Profile, FindRoomMate, AgentProperties, AgentProperties, AgentPersonalInfo #, NewPayment,  Payment, BookedLodge
 from django.forms import ModelForm, TextInput, EmailInput, PasswordInput
 
 
@@ -50,10 +50,10 @@ class ProfileUpdateForm(forms.ModelForm):
 #         model = NewPayment
 #         fields = ['lodge_name','amount', 'email']
 
-class PaymentForm(forms.ModelForm):
-    class Meta:
-        model = Payment
-        fields = ['amount', 'email']
+# class PaymentForm(forms.ModelForm):
+#     class Meta:
+#         model = Payment
+#         fields = ['amount', 'email']
 
 class FindRoomMateForm(forms.ModelForm):
     class Meta:
@@ -120,10 +120,10 @@ class FindRoomMateForm(forms.ModelForm):
             })
         }
 
-class BookedLodgeForm(forms.ModelForm):
-    class meta:
-        model = BookedLodge
-        fields = ['name', 'user_id', 'price', 'lodge']
+# class BookedLodgeForm(forms.ModelForm):
+#     class meta:
+#         model = BookedLodge
+#         fields = ['name', 'user_id', 'price', 'lodge']
 
 class AgentPersonalInfoForm(forms.ModelForm):
     class Meta:

@@ -3,7 +3,7 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import LodgeDetailView, ConfPayment, Lodge_booking
+from .views import LodgeDetailView, ConfPayment #, Lodge_booking
 from django.conf.urls import url
 import notifications.urls
 
@@ -41,11 +41,12 @@ urlpatterns = [
     path('Personal_Info/', views.agentPersonalInfo, name='agentPersonalInfo'),
     path('agent_Properties/', views.agentProperties, name='agentProperties'),
 
-    path('ini_pay/<int:id>/', views.ini_pay, name='ini_pay'),
+    
     #path('confirm_payment', views.deposit, name='confirm_payment'),
     path('confirm_payment/<int:pk>/', ConfPayment.as_view(), name= 'confirm_payment'),
-    url('initiate_payment/', views.initiate_payment, name='initiate_payment'),
-    path('<str:ref>/', views.verify_payment, name='verify-payment'),
+    path('ini_pay/<int:id>/', views.ini_pay, name='ini_pay'),
+    #url('initiate_payment/', views.initiate_payment, name='initiate_payment'),
+    #path('<str:ref>/', views.verify_payment, name='verify-payment'),
     
     
     ]
