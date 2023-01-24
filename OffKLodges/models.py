@@ -137,7 +137,7 @@ class NewPayment(models.Model):
     lodge_name = models.CharField(max_length=50)
     amount = models.PositiveIntegerField()
     email = models.EmailField()
-    date_created = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField(default = datetime.date.today)
 
     def __str__(self):
         return f'{self.user.username}'

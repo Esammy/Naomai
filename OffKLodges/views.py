@@ -362,4 +362,4 @@ def agentProperties(request):
         return render(request, 'agentproperties.html', {'form': form})
     except Exception as e:
         print(e)
-        return HttpResponse("Please login from admin site for sending messages")
+        return render(request, 'propertyerrorpage.html')
