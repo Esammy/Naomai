@@ -303,3 +303,23 @@ tr:nth-child(even){
 .noti_home{
   border-radius: 10px;
 }
+.lodgebooking{
+  margin: 100px 600px ;
+  border-left: 1px solid rgb(15, 14, 14);
+  padding-left: 7px;
+  padding: 20px 10px;
+}
+
+.personalheading{
+  justify-content: center;
+  text-align: center;
+}
+
+.personone{
+  margin: 10px;
+}
+
+.persontwo{
+  margin: 10px;
+  width: 50%;
+}

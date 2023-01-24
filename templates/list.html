@@ -16,9 +16,9 @@
     <div class="pricefilt"></div>
       <form class="d-flex" role="filter" method="POST" action="{% url 'filters' %}">
         {% csrf_token %}
-        <input class="form-control me-2" name="minimum" type="number" placeholder="Minimum..." aria-label="Search" required>
+        <input class="form-control me-2" name="minimum" type="number" placeholder="Minimum price..." aria-label="Search" required>
         
-        <input class="form-control me-2" name="maximum" type="number" placeholder="Maximun..." aria-label="Search" required>
+        <input class="form-control me-2" name="maximum" type="number" placeholder="Maximun price..." aria-label="Search" required>
         <button class="btn btn-outline-secondary" type="submit">filter</button>
       </form>
     </div>

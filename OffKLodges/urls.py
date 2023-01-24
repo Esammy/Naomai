@@ -23,10 +23,8 @@ urlpatterns = [
     url('search/', views.search, name='search'),
     url('filters/', views.filter, name='filters'),
 
-    url('initiate_payment/', views.initiate_payment, name='initiate_payment'),
-    path('<str:ref>/', views.verify_payment, name='verify-payment'),
-    path('confirm_payment', views.deposit, name='confirm_payment'),
-    path('confirm_payment/<int:pk>/', ConfPayment.as_view(), name= 'confirm_payment'),
+    
+    
     #path("terms", views.KeywordListView.as_view(),name="terms"),
     #path("terms/<int:page>", views.listing, name="terms-by-page"),
     path("terms.json", views.listing_api, name="terms-api"),
@@ -37,8 +35,18 @@ urlpatterns = [
 
     #path('booking/', views.bookings, name='booking'),
     path('booking/<int:id>/', views.bookings, name='booking'),
-    path('message', views.message, name='message'),
+    path('message/', views.message, name='message'),
     url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
+
+    path('Personal_Info/', views.agentPersonalInfo, name='agentPersonalInfo'),
+    path('agent_Properties/', views.agentProperties, name='agentProperties'),
+
+    path('ini_pay/<int:id>/', views.ini_pay, name='ini_pay'),
+    #path('confirm_payment', views.deposit, name='confirm_payment'),
+    path('confirm_payment/<int:pk>/', ConfPayment.as_view(), name= 'confirm_payment'),
+    url('initiate_payment/', views.initiate_payment, name='initiate_payment'),
+    path('<str:ref>/', views.verify_payment, name='verify-payment'),
+    
     
     ]
 

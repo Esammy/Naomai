@@ -23,14 +23,14 @@ INSTALLED_APPS = [
     'django_filters',
     'crispy_forms',
     'OffKLodges.apps.OffklodgesConfig',
-    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'notifications'
+    'notifications',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
@@ -141,3 +141,21 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'egwusamuel2015@gmail.com'
 EMAIL_HOST_PASSWORD = 'urljnaqwigohanpa'
+
+
+# pip install django-extensions==3.1.5
+# pip install pydotplus==2.0.2
+# Install GraphViz via installer and MANUALLY add it to the user PATH
+# Include django_extensions in settings.py:
+# python manage.py graph_models -a -o myapp_models.png
+
+# Create a dot file
+# python manage.py graph_models -a > my_project.dot
+# Create a PNG image file called my_project_visualized.png with application grouping
+# python manage.py graph_models -a -g -o my_project_visualized.png
+
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
