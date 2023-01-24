@@ -71,7 +71,12 @@
                   <div class="noti_word">
                     
                     <span class="dropdown-item"><b>{{ notification.description }}</b></span>
-                    <div class="searchfilt">
+                    
+                    
+                  </div>
+                  <div class="dropdown-divider"></div>
+                {% endfor %}
+                <div class="searchfiltN">
                       <form class="d-flex" role="search" method="POST" action="{% url 'search' %}">
                       {% csrf_token %}
                       
@@ -79,10 +84,6 @@
                         <button class="btn btn-outline-secondary" type="submit">Search</button>
                       </form>
                     </div>
-                    
-                  </div>
-                  <div class="dropdown-divider"></div>
-                {% endfor %}
               </div>
 
             {% else %}

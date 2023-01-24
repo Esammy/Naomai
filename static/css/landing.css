@@ -323,3 +323,12 @@ tr:nth-child(even){
   margin: 10px;
   width: 50%;
 }
+
+#notiD{
+  background-color: #f7eeee;
+}
+
+.searchfiltN{
+  padding-left: 5px;
+  margin-left: 5px;
+}
