@@ -12,7 +12,7 @@ Welcome to the Off-Campus Accommodation Portal! This platform provides a conveni
 
 2. Property Listings:
    - Landlords can create listings for their properties.
-   - Each property listing includes detailed information such as location, amenities, rental prices, and contact details.
+   - Each property listing includes detailed information such as location, amenities, rental prices, and others
    - Properties are displayed in a user-friendly and searchable format.
 
 3. Booking System:
@@ -20,9 +20,6 @@ Welcome to the Off-Campus Accommodation Portal! This platform provides a conveni
    - Booking functionality allows students to reserve their preferred lodges.
    - Notifications and confirmation emails are sent to both students and landlords upon successful bookings.
 
-4. Reviews and Ratings:
-   - Students can leave reviews and ratings for properties they have stayed in.
-   - Reviews help future students make informed decisions about their accommodation choices.
 
 ## Getting Started
 
@@ -35,7 +32,7 @@ To get started with the Off-Campus Accommodation Portal, follow these steps:
 
 2. Install the necessary dependencies:
    ```bash
-   pip install -r requirements.txt
+   pip install -r requirement.txt
    ```
 
 3. Set up the database:
