@@ -61,6 +61,6 @@ The Off-Campus Accommodation Portal is built using the following technologies:
 
 ## Contact
 
-If you have any questions, suggestions, or feedback, please feel free to reach out to our team at [your-email@example.com](mailto:ehnne42@gmail.com).
+If you have any questions, suggestions, or feedback, please feel free to reach out to our team at [ehnne42@gmail.com](mailto:ehnne42@gmail.com).
 
 Thank you for choosing the Off-Campus Accommodation Portal! We hope it provides a valuable service for students seeking off-campus accommodation.
